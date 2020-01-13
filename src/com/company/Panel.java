@@ -34,8 +34,10 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
         g2d.fill(ellipse);
 
         g2d.setColor(Color.GREEN);
-        Rectangle2D.Double rect = new Rectangle2D.Double(pipe.x, pipe.y, pipe.width, pipe.gap);
-        g2d.fill(rect);
+        Rectangle2D.Double rectTop = new Rectangle2D.Double(pipe.x, 0, pipe.width, pipe.y);
+        Rectangle2D.Double rectBottom = new Rectangle2D.Double(pipe.x, pipe.y + pipe.gap, pipe.width, Frame.FRAME_HEIGHT - pipe.gap - pipe.y);
+        g2d.fill(rectTop);
+        g2d.fill(rectBottom);
     }
 
     @Override
@@ -43,6 +45,8 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
         repaint();
         bird.y += bird.yVel;
         bird.yVel += bird.gravity;
+
+        pipe.x += pipe.xVel;
 
         System.out.println(bird.x);
         System.out.println(bird.y);

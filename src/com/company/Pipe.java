@@ -12,6 +12,8 @@ public class Pipe {
         this.y = y;
         this.width = width;
         this.gap = gap;
+
+        this.xVel = -2;
     }
 
 }

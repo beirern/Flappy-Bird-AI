@@ -19,7 +19,7 @@ public class Bird {
     }
 
     public void checkCollisions() {
-        if (y <= 0 || y + 2 * radius >= 400) {
+        if (y <= 0 || y + 2 * radius >= Frame.FRAME_HEIGHT) {
             yVel *= -1;
         }
     }
