@@ -20,7 +20,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
 
-        bird = new Bird(50, 50, 15, 2, 2);
+        bird = new Bird(50, 50, 15, 2);
 
         pipe = new Pipe(200, 300, 50, 30);
     }
@@ -41,8 +41,12 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
     @Override
     public void actionPerformed(ActionEvent e) {
         repaint();
-        bird.x += bird.xVel;
         bird.y += bird.yVel;
+        bird.yVel += bird.gravity;
+
+        System.out.println(bird.x);
+        System.out.println(bird.y);
+        System.out.println(bird.yVel);
 
         bird.checkCollisions();
     }
@@ -51,12 +55,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
         if (code == KeyEvent.VK_SPACE) {
-//            System.out.println(bird.x);
-//            System.out.println(bird.y);
-//            System.out.println(bird.xVel);
-//            System.out.println(bird.yVel);
-//            bird.x += bird.xVel;
-//            bird.y += bird.yVel;
+            bird.yVel = -5;
         }
     }
 
@@ -70,7 +69,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println("x: " + e.getX() + " y: " + e.getY());
+//        System.out.println("x: " + e.getX() + " y: " + e.getY());
     }
 
     @Override

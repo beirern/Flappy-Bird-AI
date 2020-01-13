@@ -1,12 +1,13 @@
 package com.company;
 
 public class Pipe {
-    public int x;
-    public int y;
-    public int width;
-    public int gap;
+    public double x;
+    public double y;
+    public double xVel;
+    public double width;
+    public double gap;
 
-    Pipe(int x, int y, int width, int gap) {
+    Pipe(double x, double y, double width, double gap) {
         this.x = x;
         this.y = y;
         this.width = width;
