@@ -4,10 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
 
 public class Panel extends JPanel implements ActionListener, KeyListener, MouseListener {
     public Timer t;
     public Bird bird;
+    public Pipe pipe;
 
     public Panel() {
         t = new Timer(5, this);
@@ -19,6 +21,8 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
         setFocusTraversalKeysEnabled(false);
 
         bird = new Bird(50, 50, 15, 2, 2);
+
+        pipe = new Pipe(200, 300, 50, 30);
     }
 
     @Override
@@ -28,6 +32,10 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
         g2d.setColor(Color.BLUE);
         Ellipse2D.Double ellipse = new Ellipse2D.Double(bird.x, bird.y, bird.radius, bird.radius);
         g2d.fill(ellipse);
+
+        g2d.setColor(Color.GREEN);
+        Rectangle2D.Double rect = new Rectangle2D.Double(pipe.x, pipe.y, pipe.width, pipe.gap);
+        g2d.fill(rect);
     }
 
     @Override
@@ -67,7 +75,6 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
 
     @Override
     public void mousePressed(MouseEvent e) {
-        System.out.println("x: " + e.getX() + " y: " + e.getY());
     }
 
     @Override

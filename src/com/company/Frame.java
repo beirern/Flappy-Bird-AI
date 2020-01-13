@@ -12,6 +12,7 @@ public class Frame extends JFrame {
         panel = new Panel();
 
         add(panel);
+//        setLocationRelativeTo(null);
         setVisible(true);
         setSize(600, 400);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
