@@ -16,4 +16,8 @@ public class Pipe {
         this.xVel = -2;
     }
 
+    public String toString() {
+        return "Pipe: " + this.x + ", " + this.y;
+    }
+
 }

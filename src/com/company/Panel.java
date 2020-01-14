@@ -5,11 +5,16 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
+import java.util.Arrays;
 
 public class Panel extends JPanel implements ActionListener, KeyListener, MouseListener {
     public Timer t;
     public Bird bird;
-    public Pipe pipe;
+
+    public Pipe[] pipes;
+    public static final int PIPE_WIDTH = 25;
+    public static final int PIPE_GAP = 80;
+    public static final int PIPE_DISTANCE = 250;
 
     public Panel() {
         t = new Timer(5, this);
@@ -20,9 +25,18 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
 
-        bird = new Bird(50, 50, 15, 2);
+        bird = new Bird(50, 50, 20, 1);
 
-        pipe = new Pipe(200, 300, 50, 30);
+        int initialPipeX = 250;
+        int arrSize = (Frame.FRAME_WIDTH - initialPipeX) / PIPE_DISTANCE;
+        pipes = new Pipe[arrSize];
+
+        for (int i = 0; i < pipes.length; i++) {
+            pipes[i] = new Pipe(initialPipeX + i * PIPE_DISTANCE, 300, PIPE_WIDTH, PIPE_GAP);
+        }
+
+        System.out.println(Arrays.toString(pipes));
+
     }
 
     @Override
@@ -34,10 +48,12 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
         g2d.fill(ellipse);
 
         g2d.setColor(Color.GREEN);
-        Rectangle2D.Double rectTop = new Rectangle2D.Double(pipe.x, 0, pipe.width, pipe.y);
-        Rectangle2D.Double rectBottom = new Rectangle2D.Double(pipe.x, pipe.y + pipe.gap, pipe.width, Frame.FRAME_HEIGHT - pipe.gap - pipe.y);
-        g2d.fill(rectTop);
-        g2d.fill(rectBottom);
+        for (Pipe pipe : pipes) {
+            Rectangle2D.Double rectTop = new Rectangle2D.Double(pipe.x, 0, pipe.width, pipe.y);
+            Rectangle2D.Double rectBottom = new Rectangle2D.Double(pipe.x, pipe.y + pipe.gap, pipe.width, Frame.FRAME_HEIGHT - pipe.gap - pipe.y);
+            g2d.fill(rectTop);
+            g2d.fill(rectBottom);
+        }
     }
 
     @Override
@@ -46,11 +62,13 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
         bird.y += bird.yVel;
         bird.yVel += bird.gravity;
 
-        pipe.x += pipe.xVel;
+        for (Pipe pipe : pipes) {
+            pipe.x += pipe.xVel;
+        }
 
-        System.out.println(bird.x);
-        System.out.println(bird.y);
-        System.out.println(bird.yVel);
+//        System.out.println(bird.x);
+//        System.out.println(bird.y);
+//        System.out.println(bird.yVel);
 
         bird.checkCollisions();
     }
@@ -59,7 +77,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
         if (code == KeyEvent.VK_SPACE) {
-            bird.yVel = -5;
+            bird.yVel = -4;
         }
     }
 

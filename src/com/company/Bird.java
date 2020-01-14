@@ -9,10 +9,10 @@ public class Bird {
     public double gravity;
 
     Bird(double x, double y, double radius, double yVel) {
-        this.x = 50;
-        this.y = 50;
-        this.radius = 20;
-        this.yVel = 1;
+        this.x = x;
+        this.y = y;
+        this.radius = radius;
+        this.yVel = yVel;
         this.score = 0;
 
         this.gravity = 0.2;
