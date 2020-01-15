@@ -1,12 +1,10 @@
 package com.company;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import java.awt.*;
-import java.awt.geom.Ellipse2D;
+import javax.swing.*;
 
 public class Frame extends JFrame {
     JPanel panel;
+    JLabel score;
 
     public static final int FRAME_WIDTH = 1000;
     public static final int FRAME_HEIGHT = 600;
@@ -14,8 +12,11 @@ public class Frame extends JFrame {
     Frame() {
         panel = new Panel();
 
+        score = new JLabel("Score ");
+
         add(panel);
-//        setLocationRelativeTo(null);
+
+        //        setLocationRelativeTo(null);
         setVisible(true);
         setSize(FRAME_WIDTH, FRAME_HEIGHT);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
