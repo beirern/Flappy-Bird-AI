@@ -18,9 +18,13 @@ public class Bird {
         this.gravity = 0.2;
     }
 
-    public void checkCollisions() {
+    public void checkCollisions(Pipe pipe) {
+        // Collisions for Top and Bottom of Screen
         if (y <= 0 || y + 2 * radius >= Frame.FRAME_HEIGHT) {
             yVel *= -1;
         }
+
+        // Collisions for Pipes
+//        if (this.x + this.radius >= pipe.x && this.x - this.radius <= pipe.x + pipe.width)
     }
 }

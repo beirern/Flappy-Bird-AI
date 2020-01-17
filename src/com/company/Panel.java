@@ -19,10 +19,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
     public static final double PIPE_GAP = 80;
     public static final double PIPE_DISTANCE = 250;
 
-    public Panel(Bird bird, JLabel score) {
-        this.bird = bird;
-        this.score = score;
-
+    public Panel() {
         // Panel Stuff
         t = new Timer(5, this);
         t.start();
@@ -33,7 +30,13 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
         setFocusTraversalKeysEnabled(false);
 
         // Bird Initialization
-//        bird = new Bird(50, 50, 20, 1);
+        bird = new Bird(50, 50, 20, 1);
+
+        // JLabel Initialization
+        score = new JLabel("Score " + bird.score, SwingConstants.RIGHT);
+        score.setFont(score.getFont().deriveFont(Font.BOLD, 32));
+
+        add(score, BorderLayout.PAGE_START);
 
         // Pipe Initialization
         int initialPipeX = 250;
@@ -55,7 +58,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
 
         // Increment Score once Passed
         Pipe firstPipe = pipes.get(0);
-        if ((bird.x > firstPipe.x + firstPipe.width) && firstPipe.notPassed) {
+        if ((bird.x - bird.radius > firstPipe.x + firstPipe.width) && firstPipe.notPassed) {
             bird.score++;
             firstPipe.notPassed = false;
         }
@@ -77,8 +80,8 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
         // Pipes
         g2d.setColor(Color.GREEN);
         for (Pipe pipe : pipes) {
-            Rectangle2D.Double rectTop = new Rectangle2D.Double(pipe.x, 0, pipe.width, pipe.y);
-            Rectangle2D.Double rectBottom = new Rectangle2D.Double(pipe.x, pipe.y + pipe.gap, pipe.width, Frame.FRAME_HEIGHT - pipe.gap - pipe.y);
+            Rectangle2D.Double rectTop = new Rectangle2D.Double(pipe.x, score.getHeight(), pipe.width, pipe.y);
+            Rectangle2D.Double rectBottom = new Rectangle2D.Double(pipe.x, pipe.y + pipe.gap + score.getHeight(), pipe.width, Frame.FRAME_HEIGHT - pipe.gap - pipe.y);
             g2d.fill(rectTop);
             g2d.fill(rectBottom);
         }
@@ -88,6 +91,9 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
     public void actionPerformed(ActionEvent e) {
         // Repaint every time Timer goes off
         repaint();
+
+        // Update JLabel
+        score.setText("Score: " + bird.score);
 
         // Bird Movement
         bird.y += bird.yVel;
@@ -99,7 +105,8 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
         }
 
         // Call to check collisions
-        bird.checkCollisions();
+        Pipe firstPipe = pipes.get(0);
+        bird.checkCollisions(firstPipe);
     }
 
     @Override
