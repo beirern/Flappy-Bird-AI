@@ -12,12 +12,17 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
     public Timer t;
     public Bird bird;
 
+    public JLabel score;
+
     public List<Pipe> pipes;
     public static final double PIPE_WIDTH = 25;
     public static final double PIPE_GAP = 80;
     public static final double PIPE_DISTANCE = 250;
 
-    public Panel() {
+    public Panel(Bird bird, JLabel score) {
+        this.bird = bird;
+        this.score = score;
+
         // Panel Stuff
         t = new Timer(5, this);
         t.start();
@@ -28,7 +33,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
         setFocusTraversalKeysEnabled(false);
 
         // Bird Initialization
-        bird = new Bird(50, 50, 20, 1);
+//        bird = new Bird(50, 50, 20, 1);
 
         // Pipe Initialization
         int initialPipeX = 250;
@@ -48,8 +53,15 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
             pipes.add(new Pipe(lastPipe.x + PIPE_DISTANCE, 300, PIPE_WIDTH, PIPE_GAP));
         }
 
-        // Remove pipe from list once it has left the screen
+        // Increment Score once Passed
         Pipe firstPipe = pipes.get(0);
+        if ((bird.x > firstPipe.x + firstPipe.width) && firstPipe.notPassed) {
+            bird.score++;
+            firstPipe.notPassed = false;
+        }
+
+        // Remove pipe from list once it has left the screen
+        firstPipe = pipes.get(0);
         if (firstPipe.x + firstPipe.width < 0) {
             pipes.remove(0);
         }

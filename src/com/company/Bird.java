@@ -5,7 +5,7 @@ public class Bird {
     public double y;
     public double radius;
     public double yVel;
-    public double score;
+    public int score;
     public double gravity;
 
     Bird(double x, double y, double radius, double yVel) {

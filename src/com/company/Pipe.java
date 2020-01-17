@@ -6,6 +6,7 @@ public class Pipe {
     public double xVel;
     public double width;
     public double gap;
+    public boolean notPassed;
 
     Pipe(double x, double y, double width, double gap) {
         this.x = x;
@@ -14,6 +15,8 @@ public class Pipe {
         this.gap = gap;
 
         this.xVel = -2;
+
+        this.notPassed = true;
     }
 
     public String toString() {
