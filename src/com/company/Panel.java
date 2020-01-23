@@ -8,16 +8,19 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Panel extends JPanel implements ActionListener, KeyListener, MouseListener {
     public Timer t;
     public Bird bird;
 
-    public JLabel score;
+    public static JLabel score;
 
     public List<Pipe> pipes;
     public static final double PIPE_WIDTH = 25;
     public static final double PIPE_GAP = 80;
     public static final double PIPE_DISTANCE = 250;
+
+    public static final int LOWEST_SCREEN_POINT = 495;
 
     public Panel() {
         // Panel Stuff
@@ -25,7 +28,6 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
         t.start();
         addKeyListener(this);
         addMouseListener(this);
-        addKeyListener(this);
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
 
@@ -36,16 +38,20 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
         score = new JLabel("Score " + bird.score, SwingConstants.RIGHT);
         score.setFont(score.getFont().deriveFont(Font.BOLD, 32));
 
-        add(score, BorderLayout.PAGE_START);
+        add(score);
 
         // Pipe Initialization
         int initialPipeX = 250;
         int arrSize = (int) ((Frame.FRAME_WIDTH - initialPipeX) / PIPE_DISTANCE);
         pipes = new ArrayList<>();
 
+        int randY;
+
         for (int i = 0; i < arrSize; i++) {
-            pipes.add(new Pipe(initialPipeX + i * PIPE_DISTANCE, 300, PIPE_WIDTH, PIPE_GAP));
+            randY = (int) (Math.random() * (LOWEST_SCREEN_POINT - PIPE_GAP)) + score.getHeight();
+            pipes.add(new Pipe(initialPipeX + i * PIPE_DISTANCE, randY, PIPE_WIDTH, PIPE_GAP));
         }
+
     }
 
     @Override
@@ -53,7 +59,8 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
         // Add pipe to end of list once there is room
         Pipe lastPipe = pipes.get(pipes.size() - 1);
         if (lastPipe.x + lastPipe.width + lastPipe.gap < Frame.FRAME_WIDTH) {
-            pipes.add(new Pipe(lastPipe.x + PIPE_DISTANCE, 300, PIPE_WIDTH, PIPE_GAP));
+            int randY = (int) (Math.random() * (LOWEST_SCREEN_POINT - PIPE_GAP)) + score.getHeight();
+            pipes.add(new Pipe(lastPipe.x + PIPE_DISTANCE, randY, PIPE_WIDTH, PIPE_GAP));
         }
 
         // Increment Score once Passed
@@ -81,7 +88,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
         g2d.setColor(Color.GREEN);
         for (Pipe pipe : pipes) {
             Rectangle2D.Double rectTop = new Rectangle2D.Double(pipe.x, score.getHeight(), pipe.width, pipe.y);
-            Rectangle2D.Double rectBottom = new Rectangle2D.Double(pipe.x, pipe.y + pipe.gap + score.getHeight(), pipe.width, Frame.FRAME_HEIGHT - pipe.gap - pipe.y);
+            Rectangle2D.Double rectBottom = new Rectangle2D.Double(pipe.x, pipe.y + pipe.gap + score.getHeight(), pipe.width, Frame.FRAME_HEIGHT - pipe.gap - pipe.y - score.getHeight());
             g2d.fill(rectTop);
             g2d.fill(rectBottom);
         }
@@ -133,17 +140,21 @@ public class Panel extends JPanel implements ActionListener, KeyListener, MouseL
 
     @Override
     public void mousePressed(MouseEvent e) {
+
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
+
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
+
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
+
     }
 }

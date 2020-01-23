@@ -25,6 +25,14 @@ public class Bird {
         }
 
         // Collisions for Pipes
-//        if (this.x + this.radius >= pipe.x && this.x - this.radius <= pipe.x + pipe.width)
+        // x Collisions
+        if (this.x + this.radius >= pipe.x && this.x - this.radius <= pipe.x + pipe.width) {
+            // y Collisions
+            if (this.y + this.radius >= pipe.y + pipe.gap + Panel.score.getHeight() ||
+                    this.y <= pipe.y + Panel.score.getHeight()) {
+                yVel *= -1;
+            }
+
+        }
     }
 }
