@@ -26,7 +26,7 @@ public class Bird {
 
         // Collisions for Pipes
         // x Collisions
-        if (this.x + this.radius >= pipe.x && this.x - this.radius <= pipe.x + pipe.width) {
+        if (this.x + this.radius >= pipe.x && this.x <= pipe.x + pipe.width) {
             // y Collisions
             if (this.y + this.radius >= pipe.y + pipe.gap + Panel.score.getHeight() ||
                     this.y <= pipe.y + Panel.score.getHeight()) {
