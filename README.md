@@ -4,6 +4,10 @@ An AI for a custom made Flappy Bird Game!
 ## This is probably your most self explanitory title
 Thank you!
 
+## Requirements
+1. Java
+2. Neuroph for Java
+
 ## How to Use
 This is an IntelliJ Idea project. I think you open up IntelliJ and import the project, I honestly don't know if it works any other way. If that works click play to run the project!
 
